@@ -102,8 +102,12 @@ function validatePassword(password) {
     }
 }
 
+function isValidConfirmPassword(password) {
+    return password === $("#pwd").val();
+}
+
 function validateConfirmPassword(password) {
-    if ( password === $("#pwd").val() ) {
+    if ( isValidConfirmPassword(password) ) {
         $("#cpwd-helper").text("Passwords match").css("color", "green");
         $("#cpwd").css("border", "2px solid green");
     } else {
@@ -125,13 +129,6 @@ $(document).ready( () => {
         $("#cpwd").attr("type", (i, val) => val === "text" ? "password" : "text");
     })
 
-    $("#submit-btn").click( () => {
-        let email = $("#email").val();
-        let passwd = $("#pwd").val();
-        let cpasswd = $("#cpwd").val();
-        alert(email + " " + passwd + " " + cpasswd);
-    } );
-
     $("#fname").keypress( (e) => acceptName(e) );
     $("#lname").keypress( (e) => acceptName(e) );
 
@@ -143,4 +140,48 @@ $(document).ready( () => {
     $("#pwd").keyup( function() { validatePassword($(this).val()); } );
 
     $("#cpwd").keyup( function() { validateConfirmPassword($(this).val()); } );
+
+    $("#submit-btn").click( function() {
+        if ( isValidName($("#fname").val()) && isValidName($("#lname").val())
+            && isValidEmail($("#email").val()) && isValidPassword($("#pwd")) 
+            && isValidConfirmPassword($("#cpwd")) ) {
+                console.log("Sending req...");
+                $(this).prop('disabled', true);  
+                $.post("/php/register.php",
+                    {
+                        fname : $("#fname").val(),
+                        lname : $("#lname").val(),
+                        email : $("#email").val(),
+                        pwd : $("#pwd").val(),
+                        cpwd : $("#cpwd").val(),
+                    },
+                    function(data, status) {
+                        console.log("CALLBACK " + typeof(data) + data + typeof(status) + status);
+                        if ( status === "success" ) {
+                            switch(data) {
+                                case "1":
+                                    window.open("/login.html", "_self");
+                                    break;
+                                case "0":
+                                    $("#resp-helper").html("Please fill all necessary details");
+                                    break;
+                                case "-2":
+                                    $("#resp-helper").html("Server error. Please contact the admin.");
+                                    break;
+                                case "-1":
+                                    $("#resp-helper").html("Email already exists");
+                                    break;
+                                case "-5":
+                                    $("#resp-helper").html("Server error. Please contact the admin.");
+                                    break;
+                            }
+                        } else {
+                            $("#resp-helper").html("Network Error.");
+                        }
+                        $("#resp-helper").css("color", "red");
+                        $(this).prop('disabled', false);  
+                    }
+                );  
+            }
+    } );
 })
