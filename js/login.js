@@ -11,8 +11,8 @@ $(document).ready(function() {
     
     function validateEmail(email) {
         if ( isValidEmail(email) ) {
-            $("#email").css("border", "2px solid green");
-            $("#email-helper").html("Email is valid").css("color", "green");
+            $("#email").css("border", "1px solid grey");
+            $("#email-helper").html("").css("color", "green");
         } else {
             $("#email").css("border", "2px solid red");
             $("#email-helper").html("Enter a valid email").css("color", "red");
@@ -20,4 +20,29 @@ $(document).ready(function() {
     }
 
     $("#email").blur( function() { validateEmail($(this).val()); });
+
+    $("#submit-btn").click( function() {
+        if ( isValidEmail($("#email").val()) ) {
+            $(this).prop('disabled', true);  
+            $.post("/php/login.php",
+                {
+                    email : $("#email").val(),
+                    pwd : $("#pwd").val()
+                },
+                function(data, status) {
+                    if ( status === "success" ) {
+                        if ( data === "1" ) {
+                            window.open("profile.html", "_self");
+                        } else {
+                            $("#resp-helper").html("Invalid email or password");    
+                        }
+                    } else {
+                        $("#resp-helper").html("Network Error.");
+                    }
+                    $("#resp-helper").css("color", "red");
+                }
+            );
+            $(this).prop('disabled', false);
+        }
+    });
 });
