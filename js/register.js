@@ -40,6 +40,18 @@ function isValidPassword(password) {
 }
 
 $(document).ready( () => {
+    $("#pwd-eye").click(function() {
+        $(this).toggleClass("fa-eye-slash");
+        $(this).toggleClass("fa-eye");
+        $("#pwd").attr("type", (i, val) => val === "text" ? "password" : "text");
+    })
+
+    $("#cpwd-eye").click(function() {
+        $(this).toggleClass("fa-eye-slash");
+        $(this).toggleClass("fa-eye");
+        $("#cpwd").attr("type", (i, val) => val === "text" ? "password" : "text");
+    })
+
     $("#submit-btn").click( () => {
         let email = $("#email").val();
         let passwd = $("#pwd").val();

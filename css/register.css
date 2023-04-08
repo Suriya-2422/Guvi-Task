@@ -1,0 +1,19 @@
+.pwd-container, .cpwd-container{
+    width: 100%;
+    position: relative;
+  }
+.pwd-container input[type="password"],
+.pwd-container input[type="text"],
+.cpwd-container input[type="password"],
+.cpwd-container input[type="text"]{
+    width: 100%;
+    padding: 12px 36px 12px 12px;
+    box-sizing: border-box;
+}
+.fa-eye, .fa-eye-slash{
+    position: absolute;
+    top: 35%;
+    right: 2%;
+    cursor: pointer;
+
+}
