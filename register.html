@@ -39,8 +39,30 @@
                     <i class="fa-solid fa-eye" id="pwd-eye"></i>
                 </div>
             </div>
+            <div class="pwd-helper">
+                <div>
+                    <p id="pwd-helper-lower">
+                        <i class="fa fa-x" id="pwd-helper-lower-fa"></i>
+                        Must contain atleast one lowercase character</p>
+                    <p id="pwd-helper-upper">
+                        <i class="fa fa-x" id="pwd-helper-upper-fa"></i>
+                        Must contain atleast one uppercase character</p>
+                    <p id="pwd-helper-num">
+                        <i class="fa fa-x" id="pwd-helper-num-fa"></i>
+                        Must contain atleast one digit</p>
+                </div>
+                <div>
+                    <p id="pwd-helper-special">
+                        <i class="fa fa-x" id="pwd-helper-special-fa"></i>
+                        Must contain atleast one special character (@#$%^&+=.\-_*)</p>
+                    <p id="pwd-helper-length">
+                        <i class="fa fa-x" id="pwd-helper-length-fa"></i>
+                        Must be between 8 and 16 characters</p>
+                </div>
+            </div>
             <div class="mb-3">
                 <label for="pwd">Confirm Password:</label>
+                <span id="cpwd-helper"></span>
                 <div class="cpwd-container">
                     <input type="password" class="form-control" id="cpwd" placeholder="Enter password" name="cpswd">
                     <i class="fa-solid fa-eye" id="cpwd-eye"></i>

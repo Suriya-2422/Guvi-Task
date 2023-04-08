@@ -36,7 +36,80 @@ function validateEmail(email) {
 }
 
 function isValidPassword(password) {
-    return /^(?=.*\d)(?=.*[A-Z])(?=.*[a-z])(?=.*[^\w\d\s:])([^\s]){8,16}$/.test(password);
+    return /^(?=.*\d)(?=.*[A-Z])(?=.*[a-z])(?=.*[!@#$%^&+=.\-_*])([^\s]){8,16}$/.test(password);
+}
+
+function validatePasswordLower(password) {
+    if ( /[a-z]/.test(password) ) {
+        $("#pwd-helper-lower").css("color", "green");
+        $("#pwd-helper-lower-fa").removeClass("fa-x").addClass("fa-check").css("color", "green");
+    } else {
+        $("#pwd-helper-lower").css("color", "red");
+        $("#pwd-helper-lower-fa").addClass("fa-x").removeClass("fa-check").css("color", "red");
+    }
+}
+
+function validatePasswordUpper(password) {
+    if ( /[A-Z]/.test(password) ) {
+        $("#pwd-helper-upper").css("color", "green");
+        $("#pwd-helper-upper-fa").removeClass("fa-x").addClass("fa-check").css("color", "green");
+    } else {
+        $("#pwd-helper-upper").css("color", "red");
+        $("#pwd-helper-upper-fa").addClass("fa-x").removeClass("fa-check").css("color", "red");
+    }
+}
+
+function validatePasswordNum(password) {
+    if ( /[0-9]/.test(password) ) {
+        $("#pwd-helper-num").css("color", "green");
+        $("#pwd-helper-num-fa").removeClass("fa-x").addClass("fa-check").css("color", "green");
+    } else {
+        $("#pwd-helper-num").css("color", "red");
+        $("#pwd-helper-num-fa").addClass("fa-x").removeClass("fa-check").css("color", "red");
+    }
+}
+
+function validatePasswordSpecial(password) {
+    if ( /[!@#$%^&+=.\-_*]/.test(password) ) {
+        $("#pwd-helper-special").css("color", "green");
+        $("#pwd-helper-special-fa").removeClass("fa-x").addClass("fa-check").css("color", "green");
+    } else {
+        $("#pwd-helper-special").css("color", "red");
+        $("#pwd-helper-special-fa").addClass("fa-x").removeClass("fa-check").css("color", "red");
+    }
+}
+
+function validatePasswordLength(password) {
+    if ( /.{8,16}/.test(password) ) {
+        $("#pwd-helper-length").css("color", "green");
+        $("#pwd-helper-length-fa").removeClass("fa-x").addClass("fa-check").css("color", "green");
+    } else {
+        $("#pwd-helper-length").css("color", "red");
+        $("#pwd-helper-length-fa").addClass("fa-x").removeClass("fa-check").css("color", "red");
+    }
+}
+
+function validatePassword(password) {
+    validatePasswordLower(password);
+    validatePasswordUpper(password);
+    validatePasswordNum(password);
+    validatePasswordSpecial(password);
+    validatePasswordLength(password);
+    if ( isValidPassword(password) ) {
+        $("#pwd").css("border", "2px solid green");
+    } else {
+        $("#pwd").css("border", "2px solid red");
+    }
+}
+
+function validateConfirmPassword(password) {
+    if ( password === $("#pwd").val() ) {
+        $("#cpwd-helper").text("Passwords match").css("color", "green");
+        $("#cpwd").css("border", "2px solid green");
+    } else {
+        $("#cpwd-helper").text("Passwords do not match").css("color", "red");
+        $("#cpwd").css("border", "2px solid red");
+    }
 }
 
 $(document).ready( () => {
@@ -67,5 +140,7 @@ $(document).ready( () => {
 
     $("#email").blur( function() { validateEmail($(this).val()); });
 
-    $("#pwd").blur( function() { console.log(isValidPassword($(this).val())); } );
+    $("#pwd").keyup( function() { validatePassword($(this).val()); } );
+
+    $("#cpwd").keyup( function() { validateConfirmPassword($(this).val()); } );
 })
