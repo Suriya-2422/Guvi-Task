@@ -103,7 +103,7 @@ function validatePassword(password) {
 }
 
 function isValidConfirmPassword(password) {
-    return password === $("#pwd").val();
+    return password.trim() !== "" && password === $("#pwd").val();
 }
 
 function validateConfirmPassword(password) {
@@ -142,9 +142,12 @@ $(document).ready( () => {
     $("#cpwd").keyup( function() { validateConfirmPassword($(this).val()); } );
 
     $("#submit-btn").click( function() {
+        console.log("Submit... " + isValidName($("#fname").val()) + isValidName($("#lname").val())
+        + isValidEmail($("#email").val()) + isValidPassword($("#pwd")) 
+        + isValidConfirmPassword($("#cpwd")));
         if ( isValidName($("#fname").val()) && isValidName($("#lname").val())
-            && isValidEmail($("#email").val()) && isValidPassword($("#pwd")) 
-            && isValidConfirmPassword($("#cpwd")) ) {
+            && isValidEmail($("#email").val()) && isValidPassword($("#pwd").val())
+            && isValidConfirmPassword($("#cpwd").val()) ) {
                 console.log("Sending req...");
                 $(this).prop('disabled', true);  
                 $.post("/php/register.php",
