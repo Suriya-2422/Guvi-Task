@@ -13,8 +13,10 @@
 </head>
 <body>
     <div class="container mt-3">
-        <h2>Edit your Profile!</h2>
-        <button class="btn btn-warning" id="logout-btn">Logout</button>
+        <div class="header">
+            <h2>Edit your Profile!</h2>
+            <button class="btn btn-warning" id="logout-btn">Logout</button>
+        </div>
         <form action="#">
             <div class="row">
                 <div class="mb-3 mt-3 col">
@@ -49,7 +51,7 @@
                 <div class="mb-3 mt-3 col">
                     <label for="age">Age:</label>
                     <span id="age-helper"></span>
-                    <input type="number" class="form-control" id="age" placeholder="Enter age" name="age">
+                    <input type="number" class="form-control" id="age" placeholder="Enter age" name="age" min="13" max="100">
                 </div>
             </div>
             <div class="row">

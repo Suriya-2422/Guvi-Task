@@ -33,6 +33,47 @@ function addInterest() {
     });
   };
 
+function acceptName(e) {
+    if ( ! /[A-Za-z ]/.test(e.key) ) {
+        e.preventDefault();
+    }
+}
+
+function isValidName(name) {
+    return name.trim() === "" || /^[A-Za-z ]*$/.test(name);
+}
+
+function isValidAge(age) {
+    if ( age.trim() === "" ) return true;
+    age = parseInt(age, 10)
+    return age >= 13 && age <= 100;
+}
+
+function isValidMobile(mobile) {
+    return mobile.trim() === "" || /^[0-9]{10}$/.test(mobile);
+}
+
+function isValidDOB(dob) {
+    return dob.trim() === "" || /^[0-9]{4}-[0-9]{2}-[0-9]{2}$/.test(dob);
+}
+
+function isValidInterests() {
+    for ( let i=0; i<tagList.length; i++ ) {
+        if ( !isValidName(tagList[i]) ) return false;
+    }
+    return true;
+}
+
+function isAllValid() {
+    console.log($("#dob").val() + isValidName($("#fname").val()) + isValidName($("#lname").val()) + isValidMobile($("#mobile").val()) +
+    isValidAge($("#age").val()) + isValidDOB($("#dob").val()) + isValidName($("#gender").val()) + 
+    isValidName($("#country").val()) + isValidInterests());
+    return isValidName($("#fname").val()) && isValidName($("#lname").val()) && isValidMobile($("#mobile").val()) &&
+    isValidAge($("#age").val()) && isValidDOB($("#dob").val()) && isValidName($("#gender").val()) && 
+    isValidName($("#country").val()) && isValidInterests(); 
+}
+
+
 function updateDetails(data) {
     if ( Object.hasOwn(data, 'firstName') ) $("#fname").val(data["firstName"]);
     if ( Object.hasOwn(data, 'lastName') ) $("#lname").val(data["lastName"]);
@@ -44,9 +85,8 @@ function updateDetails(data) {
     if ( Object.hasOwn(data, 'gender') ) $("#gender").val(data["gender"]);
     if ( Object.hasOwn(data, 'interests') ) {
         tagList = data["interests"];
-        addInterest();
     }
-
+    addInterest();
 }
 
 function getData() {
@@ -54,7 +94,7 @@ function getData() {
         firstName : $("#fname").val(),
         lastName :  $("#lname").val(),
         mobileNum : $("#mobile").val(),
-        age : $("#age").val(),
+        age : parseInt($("#age").val()),
         dob : $("#dob").val(),
         gender : $("#gender").val(),
         country : $("#country").val(),
@@ -64,6 +104,18 @@ function getData() {
 }  
 
 $(document).ready( function() {
+
+    $("#fname").keypress( (e) => acceptName(e) );
+    $("#lname").keypress( (e) => acceptName(e) );
+    $("#country").keypress( (e) => acceptName(e) );
+    $("#interests").keypress( (e) => acceptName(e) );
+
+    $("#fname").blur( function() { validateName('f', $(this).val()); } );
+    $("#lname").blur( function() { validateName('l', $(this).val()); } );
+
+    $("#dob").change( function() {
+        $("#age").val(Math.floor((new Date() - new Date($(this).val())) / 31557600000))
+    });
 
     let sessid = localStorage.getItem("id");
     if ( !sessid ) window.open("login.html", "_self");
@@ -89,6 +141,7 @@ $(document).ready( function() {
     );
 
     $("#submit-btn").click( function() {
+        if ( !isAllValid() ) return;
         $(this).prop('disabled', true);
         let sessid = localStorage.getItem("id");
         $.post("/php/profile.php",

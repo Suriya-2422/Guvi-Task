@@ -3,7 +3,7 @@
     require '../vendor/autoload.php';
 
     function validateName($name) {
-        return preg_match("/[A-Za-z ]/", $name);
+        return preg_match("/^[A-Za-z ]*$/", $name);
     }
 
     function validateEmail($email) {
