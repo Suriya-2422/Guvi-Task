@@ -1,6 +1,54 @@
-.form-inline .form-control {
-	width:auto;
+#interests {
+	margin-bottom: 15px;
 }
-.form-inline .form-group {
-	display: inline-block;
+label {
+  display: block;
+  font-weight: 600;
+  text-transform: uppercase;
+  margin-bottom: 0.5rem;
+  color: #607D8B;
+}
+ul#tagList {
+  display: block;
+  padding: 0;
+  margin: 0;
+  margin-top: 15px;
+}
+ul#tagList::after {
+    content: "";
+    clear: both;
+    display: table;
+}
+ul#tagList li {
+  position: relative;
+  list-style: none;
+  float: left;
+  font-size: 0.835rem;
+  text-transform: capitalize;
+  background-color: #E8F5E9;
+  line-height: 1rem;
+  padding: 0.5rem 2rem 0.5rem 1rem;
+  border-radius: 1rem;
+  margin-right: 0.5rem;
+  margin-bottom: 0.5rem;  
+	word-break: break-all;
+}
+ul#tagList li > span.rmTag {
+  position: absolute;
+  margin: 0.25rem;
+  top: 0; right: 0;
+  height: 1.5rem;
+  width: 1.5rem;
+  border-radius: 1rem;
+  color: #fff;
+  font-size: 1.25rem;
+  line-height: 1.5rem;
+  text-align: center;
+  background-color: #C8E6C9;
+  cursor: pointer;
+  -webkit-transition: 0.3s all;
+  transition: 0.3s all;
+}
+ul#tagList li > span.rmTag:hover {  
+  background-color: #ef9a9a;
 }

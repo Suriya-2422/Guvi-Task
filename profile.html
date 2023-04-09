@@ -52,6 +52,31 @@
                     <input type="number" class="form-control" id="age" placeholder="Enter age" name="age">
                 </div>
             </div>
+            <div class="row">
+                <div class="mb-3 mt-3 col">
+                    <label for="gender">Gender:</label>
+                    <span id="gender-helper"></span>
+                    <select class="form-control" id="gender">
+                        <option>Man</option>
+                        <option>Woman</option>
+                        <option>Transgender</option>
+                        <option>Non-binary</option>
+                        <option>Prefer Not To Say</option>
+                      </select>
+                </div>
+                <div class="mb-3 mt-3 col">
+                    <label for="country">Country:</label>
+                    <span id="country-helper"></span>
+                    <input type="text" class="form-control" id="country" placeholder="Enter country" name="country">
+                </div>
+            </div>
+            <div id="interests">
+                <label for="tagList">Add your interests (Press ENTER to insert)</label>
+                <input type="text" class="form-control" id="newTag" />
+                <ul id="tagList">
+                  
+                </ul>  
+              </div>
             <button type="button" class="btn btn-primary" id="submit-btn">Update</button>
             <span id="resp-helper"></span>
         </form>

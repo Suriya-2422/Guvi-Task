@@ -40,18 +40,23 @@
         $dt->email = $email;
         $client = new MongoDB\Client("mongodb://localhost:27017");
         $collection = $client->guviwebapp->users_profile;
-        $collection->findOneAndReplace([ "email" => $email ], 
-                    $dt);
+        $collection->findOneAndReplace([ "email" => $email ], $dt);
         echo 1;
     }
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $sessid = $_POST["id"];
 
+        $redis = new Predis\Client();
+        if ( !sessionExists($redis, $sessid) ) {
+            echo -1;
+            exit();
+        }
+
         if ( isset($_POST["logout"]) && $_POST["logout"] == 1 ) {
             echo logout($sessid);
         } else if ( isset($_POST["getinfo"]) && $_POST["getinfo"] == 1 ) {
-            getData($sessid);
+                getData($sessid);
         } else if ( isset($_POST["update"]) && $_POST["update"] == 1 ) {
             $data = $_POST["data"];
             updateProfile($sessid, $data);
