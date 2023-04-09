@@ -143,8 +143,8 @@ $(document).ready( () => {
 
     $("#submit-btn").click( function() {
         console.log("Submit... " + isValidName($("#fname").val()) + isValidName($("#lname").val())
-        + isValidEmail($("#email").val()) + isValidPassword($("#pwd")) 
-        + isValidConfirmPassword($("#cpwd")));
+        + isValidEmail($("#email").val()) + isValidPassword($("#pwd").val()) 
+        + isValidConfirmPassword($("#cpwd").val()));
         if ( isValidName($("#fname").val()) && isValidName($("#lname").val())
             && isValidEmail($("#email").val()) && isValidPassword($("#pwd").val())
             && isValidConfirmPassword($("#cpwd").val()) ) {
@@ -173,9 +173,6 @@ $(document).ready( () => {
                                     break;
                                 case "-1":
                                     $("#resp-helper").html("Email already exists");
-                                    break;
-                                case "-5":
-                                    $("#resp-helper").html("Server error. Please contact the admin.");
                                     break;
                             }
                         } else {

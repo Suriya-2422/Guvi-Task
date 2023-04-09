@@ -31,10 +31,11 @@ $(document).ready(function() {
                 },
                 function(data, status) {
                     if ( status === "success" ) {
-                        if ( data === "1" ) {
-                            window.open("profile.html", "_self");
+                        if ( data === "0" ) {
+                            $("#resp-helper").html("Invalid email or password");
                         } else {
-                            $("#resp-helper").html("Invalid email or password");    
+                            localStorage.setItem("id", data);
+                            window.open("profile.html", "_self");
                         }
                     } else {
                         $("#resp-helper").html("Network Error.");
