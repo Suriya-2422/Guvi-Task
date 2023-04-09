@@ -1,3 +1,22 @@
+body {
+    background-image: url("../assets/cool-background.png");
+   display: flex;
+   justify-content: center;
+   align-items: center;
+}
+
+form {
+    max-width: 600px;
+    padding: 25px;
+    border: 2px solid rgb(8, 237, 77);
+    border-radius: 15px;
+    background: rgba(255, 255, 255, 0.189);
+}
+
+#main {
+    margin-top: 15px ;
+}
+
 .pwd-container, .cpwd-container{
     width: 100%;
     position: relative;
@@ -21,5 +40,5 @@
 .pwd-helper {
     display: flex;
     flex-flow: row wrap;
-    justify-content: space-evenly;
+    justify-content: flex-start;
 }
