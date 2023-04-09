@@ -33,7 +33,7 @@ $(document).ready(function() {
                     if ( status === "success" ) {
                         if ( data === "0" ) {
                             $("#resp-helper").html("Invalid email or password");
-                        } else {
+                        } else if ( data.length == 64 ) {
                             localStorage.setItem("id", data);
                             window.open("profile.html", "_self");
                         }
