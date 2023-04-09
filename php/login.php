@@ -20,8 +20,8 @@
         return $redis->executeCommand($cmdSet);
     }
 
-    function createSession($redis, $sessid, $user_id) {
-        $redis->set($sessid, $user_id);
+    function createSession($redis, $sessid, $email) {
+        $redis->set($sessid, $email);
         $cmdSet = $redis->createCommand('expire', array($sessid, 86400));
         return $redis->executeCommand($cmdSet);
     }
@@ -32,11 +32,11 @@
             return -2;
         }
 
-        $stmt = $conn->prepare("SELECT `user_id`, `password` FROM `users_cred` WHERE `email`=?");
+        $stmt = $conn->prepare("SELECT `password` FROM `users_cred` WHERE `email`=?");
         $stmt->bind_param("s", $email);
         $stmt->execute();
         $stmt -> store_result();
-        $stmt -> bind_result($user_id, $hashed_password);
+        $stmt -> bind_result($hashed_password);
         $stmt -> fetch();
 
         if ( $stmt->num_rows > 0 ) {
@@ -46,7 +46,7 @@
                 while ( sessionExists($redis, $sessid) ) {
                     $sessid = generateSessionID();
                 }
-                createSession($redis, $sessid, $user_id);
+                createSession($redis, $sessid, $email);
                 echo $sessid;
             } else {
                 echo 0;
