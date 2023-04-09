@@ -13,7 +13,7 @@
 ## How To Run
   1. Clone the repository 
       ```
-      git clone https://github.com/Suriya-2422/Guvi-Task.git
+      https://github.com/Suriya-2422/Register-Login-Profile
       ```
   2. Install redis [here](https://redis.io/docs/getting-started/installation/)
   3. Connect PHP with Redis using [phpredis](https://github.com/phpredis/phpredis) or [predis](https://github.com/predis/predis)
